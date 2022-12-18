@@ -1,14 +1,21 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+mod logging;
+
+#[macro_use]
+extern crate slog;
+extern crate slog_term;
+extern crate slog_async;
+extern crate slog_json;
+extern crate lazy_static;
+
+use lazy_static::lazy_static;
+use slog::Logger;
+
+use crate::logging::logging::initialize_logging;
+
+lazy_static! {
+    static ref LOGGER: Logger = initialize_logging(String::from("dynamic_re_reference_cache_"));
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+fn main() {
+    info!(&crate::LOGGER, "Configured logging");
 }
