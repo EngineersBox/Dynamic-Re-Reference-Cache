@@ -1,4 +1,6 @@
 mod logging;
+mod allocator;
+mod cache;
 
 #[macro_use]
 extern crate slog;
@@ -6,6 +8,8 @@ extern crate slog_term;
 extern crate slog_async;
 extern crate slog_json;
 extern crate lazy_static;
+extern crate core;
+extern crate cty;
 
 use lazy_static::lazy_static;
 use slog::Logger;
