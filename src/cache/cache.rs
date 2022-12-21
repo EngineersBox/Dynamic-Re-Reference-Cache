@@ -6,5 +6,4 @@ use cty::{c_void, size_t};
 
 #[repr(C)]
 pub struct Cache {
-    pub
 }
