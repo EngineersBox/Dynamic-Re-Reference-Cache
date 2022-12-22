@@ -18,7 +18,7 @@ pub struct Cache<K, V, P: CachePolicy<K, V>> {
 
 impl<K, V, P: CachePolicy<K, V>> Cache<K, V, P> {
 
-    pub fn new<T>(heap_size: usize, policy: dyn P, options: Option<T>) -> Self {
+    pub fn new<T>(heap_size: usize, options: Option<T>) -> Self {
         let alloc: AllocManager = AllocManager::new(heap_size);
         Cache {
             alloc,
