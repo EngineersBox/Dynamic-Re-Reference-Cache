@@ -14,6 +14,4 @@ impl AllocManager {
         return manager;
     }
 
-    fn malloc(&self, size: usize) ->
-
 }
