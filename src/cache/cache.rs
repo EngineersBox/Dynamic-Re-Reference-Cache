@@ -9,7 +9,6 @@ pub trait CachePolicy<T, K, V> {
     fn get(&mut self, alloc: &AllocManager, key: K) -> (V, Option<V>);
     fn contains(&self, key: K) -> bool;
     fn is_full(&self) -> bool;
-
 }
 
 pub struct Cache {
