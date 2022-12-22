@@ -1,3 +1,4 @@
+// #![feature(allocator_api)]
 mod logging;
 mod allocator;
 mod cache;
@@ -10,6 +11,7 @@ extern crate slog_json;
 extern crate lazy_static;
 extern crate core;
 extern crate cty;
+extern crate bumpalo;
 
 use lazy_static::lazy_static;
 use slog::Logger;
