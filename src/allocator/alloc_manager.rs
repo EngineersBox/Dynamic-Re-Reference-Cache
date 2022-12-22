@@ -6,7 +6,7 @@ pub struct AllocManager {
 
 impl AllocManager {
 
-    fn new(size: usize) -> AllocManager {
+    pub fn new(size: usize) -> AllocManager {
         let mananger: AllocManager = AllocManager {
             bump: Bump::new()
         };

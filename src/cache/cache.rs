@@ -1,8 +1,8 @@
 use std::fmt::Error;
 use crate::allocator::alloc_manager::{AllocManager};
 
-pub trait CachePolicy<T, K, V> {
-    fn new(alloc: &AllocManager, size: usize, options: Option<T>) -> Self;
+pub trait CachePolicy<K, V> {
+    fn new<T>(alloc: &AllocManager, options: Option<T>) -> Self;
     fn destroy(&mut self, alloc: &AllocManager);
     // TODO: Create custom error
     fn request(&mut self, key: K, value: V) -> (Option<Error>, Option<V>);
@@ -11,5 +11,19 @@ pub trait CachePolicy<T, K, V> {
     fn is_full(&self) -> bool;
 }
 
-pub struct Cache {
+pub struct Cache<K, V, P: CachePolicy<K, V>> {
+    alloc: AllocManager,
+    policy: dyn P,
+}
+
+impl<K, V, P: CachePolicy<K, V>> Cache<K, V, P> {
+
+    pub fn new<T>(heap_size: usize, policy: dyn P, options: Option<T>) -> Self {
+        let alloc: AllocManager = AllocManager::new(heap_size);
+        Cache {
+            alloc,
+            policy: P::new(&alloc, options),
+        }
+    }
+
 }
