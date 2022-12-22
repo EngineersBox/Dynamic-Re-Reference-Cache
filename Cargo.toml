@@ -15,6 +15,6 @@ slog-json = "2.3.0"
 lazy_static = "1.4.0"
 regex = "1.4.3"
 cty = "0.2.2"
-bumpalo = { version = "3.9", features = ["allocator_api"] }
+bumpalo = { version = "3.9", features = ["allocator_api", "collections"] }
 ouroboros = "0.15.5"
 owning_ref = "0.4.1"
