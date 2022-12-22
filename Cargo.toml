@@ -18,3 +18,4 @@ cty = "0.2.2"
 bumpalo = { version = "3.9", features = ["allocator_api", "collections"] }
 ouroboros = "0.15.5"
 owning_ref = "0.4.1"
+rayon = "1.6.1"
