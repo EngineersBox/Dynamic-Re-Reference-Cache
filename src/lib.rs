@@ -1,5 +1,5 @@
-// #![feature(allocator_api)]
-// #![feature(collections)]
+#![feature(allocator_api)]
+#![feature(collections)]
 mod logging;
 mod allocator;
 mod cache;

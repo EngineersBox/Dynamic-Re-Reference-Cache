@@ -20,6 +20,7 @@ impl<K, V, P: CachePolicy<K, V>> Cache<K, V, P> {
 
     pub fn new<T>(heap_size: usize, options: Option<T>) -> Self {
         let alloc: AllocManager = AllocManager::new(heap_size);
+        alloc.0.
         Cache {
             alloc,
             policy: P::new(&alloc, options),
