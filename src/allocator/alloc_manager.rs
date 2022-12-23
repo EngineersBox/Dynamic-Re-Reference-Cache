@@ -1,13 +1,13 @@
 use bumpalo::Bump;
 
-pub struct AllocManager(pub Bump);
+pub struct AllocManager;
 
 impl AllocManager {
 
-    pub fn new(size: usize) -> AllocManager {
+    pub fn new(size: usize) -> Bump {
         let bump: Bump = Bump::new();
         bump.set_allocation_limit(Some(size));
-        return AllocManager(bump);
+        return bump;
     }
 
 }
