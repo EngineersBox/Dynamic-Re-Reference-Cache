@@ -1,14 +1,18 @@
 use std::fmt::Error;
 use bumpalo::Bump;
-use crate::cache::cache::CachePolicy;
+use crate::cache::cache::{CachePolicy, KeyComparator};
 use crate::allocator::alloc_manager::AllocManager;
 
 pub struct LRUPolicy<K, V> {
     size: usize,
 }
 
-impl<K, V> CachePolicy<K, V> for LRUPolicy<K, V> {
-    fn new<T>(alloc: &Bump, options: Option<T>) -> &Self {
+pub struct LRUOptions<K, V> {
+    key_comparator: KeyComparator<K, V>,
+};
+
+impl<K, V> CachePolicy<K, V, LRUOptions<K, V>> for LRUPolicy<K, V> {
+    fn new(alloc: &Bump, options: Option<LRUOptions<K, V>>) -> &Self {
         return AllocManager::handled_alloc(bump, LRUPolicy { size: 0 });
     }
 

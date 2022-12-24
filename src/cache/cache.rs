@@ -2,8 +2,8 @@ use std::fmt::Error;
 use bumpalo::Bump;
 use crate::allocator::alloc_manager::{AllocManager};
 
-pub trait CachePolicy<K, V> {
-    fn new<T>(alloc: &Bump, options: Option<T>) -> Self;
+pub trait CachePolicy<K, V, T> {
+    fn new(alloc: &Bump, options: Option<T>) -> Self;
     fn destroy(&mut self, alloc: &Bump);
     // TODO: Create custom error
     fn request(&mut self, key: K, value: V) -> (Option<Error>, Option<V>);
@@ -12,14 +12,16 @@ pub trait CachePolicy<K, V> {
     fn is_full(&self) -> bool;
 }
 
-pub struct Cache<K, V, P: CachePolicy<K, V>> {
+pub type KeyComparator<K, V> = fn(key1: K, key2: K, key2_value: V);
+
+pub struct Cache<K, V, T, P: CachePolicy<K, V, T>> {
     alloc: Bump,
     policy: dyn P,
 }
 
-impl<K, V, P: CachePolicy<K, V>> Cache<K, V, P> {
+impl<K, V, T, P: CachePolicy<K, V, T>> Cache<K, V, T, P> {
 
-    pub fn new<T>(heap_size: usize, options: Option<T>) -> Self {
+    pub fn new(heap_size: usize, options: Option<T>) -> Self {
         let alloc: Bump = AllocManager::new(heap_size);
         Cache {
             alloc,

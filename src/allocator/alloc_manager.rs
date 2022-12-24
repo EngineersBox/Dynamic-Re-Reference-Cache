@@ -17,7 +17,7 @@ impl AllocManager {
             Err(error) => {
                 error!(&crate::LOGGER, format!(
                     "Unable to reserve memory for structure {}: {}",
-                    std::any::type_name_of_val(&val),
+                    std::any::type_name_of_val(val.borrow()),
                     error.to_string(),
                 ));
                 return val;
