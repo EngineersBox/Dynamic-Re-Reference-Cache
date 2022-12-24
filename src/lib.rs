@@ -3,6 +3,7 @@
 mod logging;
 mod allocator;
 mod cache;
+mod backing;
 
 #[macro_use]
 extern crate slog;
@@ -13,6 +14,7 @@ extern crate lazy_static;
 extern crate core;
 extern crate cty;
 extern crate bumpalo;
+extern crate memmap;
 
 use lazy_static::lazy_static;
 use slog::Logger;
