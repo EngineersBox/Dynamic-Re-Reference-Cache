@@ -14,9 +14,9 @@ pub trait CachePolicy<K, V, T> {
 
 pub type KeyComparator<K, V> = fn(key1: K, key2: K, key2_value: V);
 
-pub struct Cache<K, V, T, P: CachePolicy<K, V, T>> {
+pub struct Cache<P: CachePolicy> {
     alloc: Bump,
-    policy: dyn P,
+    policy: P,
 }
 
 impl<K, V, T, P: CachePolicy<K, V, T>> Cache<K, V, T, P> {
@@ -27,6 +27,14 @@ impl<K, V, T, P: CachePolicy<K, V, T>> Cache<K, V, T, P> {
             alloc,
             policy: P::new(&alloc, options),
         }
+    }
+
+}
+
+impl<K, V, T, P: CachePolicy<K, V, T>> Drop for Cache<K, V, T, P> {
+
+    fn drop(&mut self) {
+        debug!(&crate::LOGGER, "Dropped allocator instance for cache with policy {}", std::any::type_name<P>())
     }
 
 }
